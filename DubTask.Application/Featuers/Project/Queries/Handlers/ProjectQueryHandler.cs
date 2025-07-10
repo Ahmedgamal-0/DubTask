@@ -26,8 +26,6 @@ namespace DubTask.Application.Featuers.Project.Queries.Handlers
                 Name = p.Name,
                 Description = p.Description,
                 UserId = p.UserId,
-                User = p.User,
-                Tasks = p.Tasks
             });
         }
         public async Task<GetProjectResponse> Handle(GetProjectByIdQuery request, CancellationToken cancellationToken)
@@ -43,8 +41,6 @@ namespace DubTask.Application.Featuers.Project.Queries.Handlers
                 Name = project.Name,
                 Description = project.Description,
                 UserId = project.UserId,
-                User = project.User,
-                Tasks = project.Tasks
             };
         }
     }

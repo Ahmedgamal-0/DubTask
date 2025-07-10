@@ -12,8 +12,8 @@ builder.Services.AddApplicationService();
 builder.Services.AddPersistenceService(builder.Configuration);
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
-// JWT Authentication config
-var jwtKey = builder.Configuration["Jwt:Key"] ?? "super_secret_key_123"; // fallback key for demo
+
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "super_secret_key_123"; 
 var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "DubTaskIssuer";
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -78,10 +78,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication(); // 👈 Required for JWT
+app.UseAuthentication(); 
 app.UseAuthorization();
 app.MapControllers();
-// Example public endpoint
 app.MapGet("/weatherforecast", () =>
 {
     var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };

@@ -1,21 +1,20 @@
-﻿using DubTask.Domain.BaseEntities;
+﻿using DubTask.Domain.Shared;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DubTask.Domain.Models
+namespace DubTask.Application.Featuers.User.Commands.Models
 {
-    public class User:BaseEntity
+    public class RegisterUserCommand:IRequest<Response<int>>
     {
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Phone { get; set; } = null!;
-        public byte[] PasswordHash { get; set; } = null!;
-        public byte[] PasswordSalt { get; set; } = null!;
-
-        public ICollection<Project> Projects { get; set; } = new List<Project>();
+        public string Password { get; set; } = null!;
+        public string ConfirmPassword { get; set; } = null!;
     }
 }
