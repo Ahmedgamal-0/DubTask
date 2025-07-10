@@ -1,4 +1,5 @@
-﻿using DubTask.Domain.Shared;
+﻿using DubTask.Domain.Dtos;
+using DubTask.Domain.Shared;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DubTask.Application.Featuers.User.Commands.Models
 {
-    public class LoginUserCommand : IRequest<Response<string>>
+    public class LoginUserCommand : IRequest<Response<UserDto>>
     {
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;

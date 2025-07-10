@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DubTask.Domain.Shared;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DubTask.Application.Featuers.Project.Commands.Models
 {
-    public class DeleteProjectCommand:IRequest<string>
+    public class DeleteProjectCommand:IRequest<Response<string>>
     {
         public int Id { get; set; }
         public DeleteProjectCommand(int id)

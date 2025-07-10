@@ -1,5 +1,6 @@
 ﻿using DubTask.Application.Featuers.User.Commands.Models;
 using DubTask.Application.Repositories;
+using DubTask.Domain.Dtos;
 using DubTask.Domain.Shared;
 using MediatR;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace DubTask.Application.Featuers.User.Commands.Handlers
 {
     public class UserCommandHandler : IRequestHandler<RegisterUserCommand,Response<int>>,
-        IRequestHandler<LoginUserCommand, Response<string>>
+        IRequestHandler<LoginUserCommand, Response<UserDto>>
     {
         private readonly IUserRepository _repo;
         private readonly ITokenRepository _tokenService;
@@ -51,7 +52,7 @@ namespace DubTask.Application.Featuers.User.Commands.Handlers
                 Succeeded = true
             };
         }
-        public async Task<Response<string>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+        public async Task<Response<UserDto>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _repo.GetByEmailAsync(request.Email);
             if (user == null)
@@ -64,9 +65,18 @@ namespace DubTask.Application.Featuers.User.Commands.Handlers
                 throw new UnauthorizedAccessException("Invalid email or password");
 
             var token= _tokenService.GenerateToken(user);
-            return new Response<string>
+            var userToReturn = new UserDto
             {
-                Data = token,
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Phone = user.Phone,
+                Token = token
+            };
+            return new Response<UserDto>
+            {
+                Data = userToReturn,
                 Message = "Login successful",
                 Succeeded = true
             };

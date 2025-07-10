@@ -13,5 +13,6 @@ namespace DubTask.Application.Repositories
         public Task AddAsync(RegisterTaskItemCommand TaskItem);
         public Task UpdateAsync(UpdateTaskItemCommand TaskItem);
         public Task DeleteAsync(DeleteTaskItemCommand TaskItem);
+        public Task<IEnumerable<Domain.Models.TaskItem>> GetAllTaskItemsForProjectAsync(int projectId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DubTask.Domain.Models;
+using DubTask.Domain.Shared;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DubTask.Application.Featuers.Project.Commands.Models
 {
-    public class UpdateProjectCommand:IRequest<string>
+    public class UpdateProjectCommand:IRequest<Response<string>>
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

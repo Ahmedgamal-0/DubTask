@@ -4,10 +4,13 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using DubTask.Application;
 using DubTask.Persistence;
+using DubTask.Persistence.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddApplicationService();
 builder.Services.AddPersistenceService(builder.Configuration);
 builder.Services.AddAuthorization();

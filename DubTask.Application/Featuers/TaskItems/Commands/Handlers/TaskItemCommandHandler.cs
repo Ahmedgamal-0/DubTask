@@ -1,5 +1,6 @@
 ﻿using DubTask.Application.Featuers.TaskItems.Commands.Models;
 using DubTask.Application.Repositories;
+using DubTask.Domain.Shared;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace DubTask.Application.Featuers.TaskItems.Commands.Handlers
 {
-    public class TaskItemCommandHandler : IRequestHandler<RegisterTaskItemCommand, string>,
-        IRequestHandler<UpdateTaskItemCommand, string>, IRequestHandler<DeleteTaskItemCommand, string>
+    public class TaskItemCommandHandler : IRequestHandler<RegisterTaskItemCommand,Response<string>>,
+        IRequestHandler<UpdateTaskItemCommand, Response<string>>, IRequestHandler<DeleteTaskItemCommand, Response<string>>
     {
         #region vars
         private readonly ITaskItemRepository _TaskItemRepository;
@@ -22,20 +23,30 @@ namespace DubTask.Application.Featuers.TaskItems.Commands.Handlers
         }
         #endregion
         #region methods
-        public async Task<string> Handle(RegisterTaskItemCommand command, CancellationToken token)
+        public async Task<Response<string>> Handle(RegisterTaskItemCommand command, CancellationToken token)
         {
             await _TaskItemRepository.AddAsync(command);
-            return "Added successfully";
+            return new Response<string>
+            {
+                Data = "Added successfully",
+                Message = "Task item registered successfully",
+                Succeeded = true
+            };
         }
-        public async Task<string> Handle(UpdateTaskItemCommand command, CancellationToken token)
+        public async Task<Response<string>> Handle(UpdateTaskItemCommand command, CancellationToken token)
         {
             await _TaskItemRepository.UpdateAsync(command);
-            return "Added successfully";
+            return new Response<string>
+            {
+                Data = "Updated successfully",
+                Message = "Task item updated successfully",
+                Succeeded = true
+            };
         }
-        public async Task<string> Handle(DeleteTaskItemCommand command, CancellationToken token)
+        public async Task<Response<string>> Handle(DeleteTaskItemCommand command, CancellationToken token)
         {
             await _TaskItemRepository.DeleteAsync(command);
-            return "Added successfully";
+            return new Response<string> { Data = "Added successfully", Message = "Task item registered successfully", Succeeded = true };
         }
         #endregion
     }

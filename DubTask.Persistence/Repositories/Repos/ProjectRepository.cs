@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DubTask.Application.Featuers.Project.Commands.Models;
 using DubTask.Application.Repositories;
+using DubTask.Domain.Models;
 using DubTask.Persistence.DbContexts;
 using DubTask.Persistence.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,11 @@ namespace DubTask.Persistence.Repositories.Repos
 
             _context.Projects.Remove(projectEntity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Project>> GetAllProjectsForUserAsync(int userId)
+        {
+            return _context.Projects.Where(p => p.UserId == userId).AsNoTracking();
         }
 
         public async Task UpdateAsync(UpdateProjectCommand project)

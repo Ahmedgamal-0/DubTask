@@ -17,6 +17,7 @@ namespace DubTask.Persistence.Repositories.Repos
 
         public UserRepository(ApplicationDbContext context): base(context)
         {
+            _context = context;
         }
 
         public Task<User?> GetByEmailAsync(string email) =>

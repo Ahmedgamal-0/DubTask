@@ -12,8 +12,8 @@ namespace DubTask.Application.Profiles
     {
         public TaskItemProfile()
         {
-            CreateMap<RegisterTaskItemCommand, Domain.Models.Project>();
-            CreateMap<UpdateTaskItemCommand, Domain.Models.Project>();
+            CreateMap<RegisterTaskItemCommand, Domain.Models.TaskItem>();
+            CreateMap<UpdateTaskItemCommand, Domain.Models.TaskItem>();
         }
     }
 }

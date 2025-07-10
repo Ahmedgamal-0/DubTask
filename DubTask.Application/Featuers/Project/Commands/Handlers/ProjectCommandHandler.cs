@@ -1,5 +1,6 @@
 ﻿using DubTask.Application.Featuers.Project.Commands.Models;
 using DubTask.Application.Repositories;
+using DubTask.Domain.Shared;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace DubTask.Application.Featuers.Project.Commands.Handlers
 {
-    public class ProjectCommandHandler:IRequestHandler<RegisterProjectCommand,string>,
-        IRequestHandler<UpdateProjectCommand,string>,IRequestHandler<DeleteProjectCommand,string>
+    public class ProjectCommandHandler:IRequestHandler<RegisterProjectCommand,Response<string>>,
+        IRequestHandler<UpdateProjectCommand,Response<string>>,IRequestHandler<DeleteProjectCommand,Response<string>>
     {
         #region vars
         private readonly IProjectRepository _projectRepository;
@@ -22,20 +23,25 @@ namespace DubTask.Application.Featuers.Project.Commands.Handlers
         }
         #endregion
         #region methods
-        public async Task<string>Handle(RegisterProjectCommand command,CancellationToken token)
+        public async Task<Response<string>>Handle(RegisterProjectCommand command,CancellationToken token)
         {
             await _projectRepository.AddAsync(command);
-            return "Added successfully";
+            return new Response<string>
+            {
+                Data = "Added successfully",
+                Message = "Project registered successfully",
+                Succeeded = true
+            };
         }
-        public async Task<string> Handle(UpdateProjectCommand command, CancellationToken token)
+        public async Task<Response<string>> Handle(UpdateProjectCommand command, CancellationToken token)
         {
             await _projectRepository.UpdateAsync(command);
-            return "Added successfully";
+            return new Response<string> { Data = "Added successfully", Message = "Project registered successfully", Succeeded = true };
         }
-        public async Task<string> Handle(DeleteProjectCommand command, CancellationToken token)
+        public async Task<Response<string>> Handle(DeleteProjectCommand command, CancellationToken token)
         {
             await _projectRepository.DeleteAsync(command);
-            return "Added successfully";
+            return new Response<string> { Data = "Added successfully", Message = "Project registered successfully", Succeeded = true };
         }
         #endregion
     }

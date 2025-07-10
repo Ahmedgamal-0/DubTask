@@ -58,11 +58,11 @@ namespace DubTask.API.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllTaskItems([FromQuery] GetAllTaskItemsQuery command)
+        public async Task<IActionResult> GetAllTaskItems(int projectId)
         {
             try
             {
-                var mediatorResponse = await Mediator.Send(command);
+                var mediatorResponse = await Mediator.Send(new GetAllTaskItemsQuery(projectId) {});
                 return Ok(mediatorResponse);
             }
             catch (Exception ex)

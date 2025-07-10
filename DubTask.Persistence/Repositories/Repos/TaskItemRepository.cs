@@ -2,8 +2,10 @@
 using DubTask.Application.Base;
 using DubTask.Application.Featuers.TaskItems.Commands.Models;
 using DubTask.Application.Repositories;
+using DubTask.Domain.Models;
 using DubTask.Persistence.DbContexts;
 using DubTask.Persistence.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +38,13 @@ namespace DubTask.Persistence.Repositories.Repos
 
             _context.TaskItems.Remove(TaskItemEntity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TaskItem>> GetAllTaskItemsForProjectAsync(int projectId)
+        {
+            return _context.TaskItems
+                .Where(t => t.ProjectId == projectId)
+                .AsNoTracking();
         }
 
         public async Task UpdateAsync(UpdateTaskItemCommand TaskItem)

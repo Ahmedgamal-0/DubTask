@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DubTask.Domain.Shared;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DubTask.Application.Featuers.TaskItems.Commands.Models
 {
-    public class UpdateTaskItemCommand:IRequest<string>
+    public class UpdateTaskItemCommand:IRequest<Response<string>>
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;

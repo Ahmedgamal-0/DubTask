@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DubTask.Domain.Shared;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DubTask.Application.Featuers.TaskItems.Queries.Models
 {
-    public class GetTaskItemByIdQuery:IRequest<GetTaskItemResponse>
+    public class GetTaskItemByIdQuery:IRequest<Response<GetTaskItemResponse>>
     {
         public int Id { get; set; }
         public GetTaskItemByIdQuery(int id)

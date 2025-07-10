@@ -2,6 +2,7 @@
 using DubTask.Application.Featuers.Project.Queries.Models;
 using DubTask.Application.Repositories;
 using DubTask.Domain.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DubTask.API.Controllers
@@ -59,12 +60,13 @@ namespace DubTask.API.Controllers
                 return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAllProjects([FromQuery] GetAllProjectsQuery command)
+        public async Task<IActionResult> GetAllProjects(int userId)
         {
             try
             {
-                var mediatorResponse = await Mediator.Send(command);
+                var mediatorResponse = await Mediator.Send(new GetAllProjectsQuery {UserId=userId });
                 return Ok(mediatorResponse);
             }
             catch (Exception ex)
