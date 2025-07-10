@@ -1,0 +1,6 @@
+@DubTask.API_HostAddress = http://localhost:5256
+
+GET {{DubTask.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
