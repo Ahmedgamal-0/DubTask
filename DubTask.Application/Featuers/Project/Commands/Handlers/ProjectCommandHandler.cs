@@ -36,12 +36,12 @@ namespace DubTask.Application.Featuers.Project.Commands.Handlers
         public async Task<Response<string>> Handle(UpdateProjectCommand command, CancellationToken token)
         {
             await _projectRepository.UpdateAsync(command);
-            return new Response<string> { Data = "Added successfully", Message = "Project registered successfully", Succeeded = true };
+            return new Response<string> { Data = "Updated successfully", Message = "Project updated successfully", Succeeded = true };
         }
         public async Task<Response<string>> Handle(DeleteProjectCommand command, CancellationToken token)
         {
             await _projectRepository.DeleteAsync(command);
-            return new Response<string> { Data = "Added successfully", Message = "Project registered successfully", Succeeded = true };
+            return new Response<string> { Data = "Deleted successfully", Message = "Project deleted successfully", Succeeded = true };
         }
         #endregion
     }

@@ -44,7 +44,7 @@ namespace DubTask.API.Controllers
             try
             {
                 var token = await Mediator.Send(command);
-                return Ok(new { token });
+                return Ok(token);
             }
             catch (UnauthorizedAccessException ex)
             {

@@ -21,6 +21,7 @@ namespace DubTask.API.Controllers
         }
         #endregion
         #region Methods
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterProjectCommand command)
         {
@@ -34,6 +35,8 @@ namespace DubTask.API.Controllers
                 return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> Update(UpdateProjectCommand command)
         {
@@ -47,6 +50,7 @@ namespace DubTask.API.Controllers
                 return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -74,6 +78,7 @@ namespace DubTask.API.Controllers
                 return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {

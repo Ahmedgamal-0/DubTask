@@ -1,6 +1,7 @@
 ﻿
 using DubTask.Application.Featuers.TaskItems.Commands.Models;
 using DubTask.Application.Featuers.TaskItems.Queries.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DubTask.API.Controllers
@@ -18,6 +19,7 @@ namespace DubTask.API.Controllers
         }
         #endregion
         #region Methods
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterTaskItemCommand command)
         {
@@ -31,6 +33,8 @@ namespace DubTask.API.Controllers
                 return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> Update(UpdateTaskItemCommand command)
         {
@@ -44,6 +48,8 @@ namespace DubTask.API.Controllers
                 return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -57,6 +63,8 @@ namespace DubTask.API.Controllers
                 return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllTaskItems(int projectId)
         {
@@ -70,6 +78,8 @@ namespace DubTask.API.Controllers
                 return StatusCode(500, new { message = "Internal server error", error = ex.Message });
             }
         }
+
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {

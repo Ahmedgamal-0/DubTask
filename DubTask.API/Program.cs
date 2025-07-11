@@ -18,7 +18,15 @@ builder.Services.AddControllers();
 
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "super_secret_key_123"; 
 var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "DubTaskIssuer";
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -79,7 +87,9 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "DubTask API v1");
     });
 }
+app.UseRouting();
 
+app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();

@@ -46,7 +46,13 @@ namespace DubTask.Persistence.Repositories.Repos
 
         public async Task UpdateAsync(UpdateProjectCommand project)
         {
-            var projectEntity = _mapper.Map<Domain.Models.Project>(project);
+            var projectEntity = await GetByIdAsync(project.Id);
+            if (projectEntity == null)
+            {
+                throw new KeyNotFoundException("Project not found.");
+            }
+            projectEntity.Name=project.Name;
+            projectEntity.Description = project.Description;
             _context.Projects.Update(projectEntity);
             await _context.SaveChangesAsync();
         }
